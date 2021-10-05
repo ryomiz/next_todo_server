@@ -1,41 +1,39 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { CreateTaskDto } from './dto/create-task.dto';
+import { UpdateTaskDto } from './dto/update-task.dto';
 
-import type { Task } from '../types';
+import { Task } from './entities/task.entity';
 
 @Injectable()
 export class TaskService {
-  getAllTasks(): Array<Task> {
-    return [
-      {
-        duration: '11/1 - 11/30',
-        todo: 'TASK1',
-        state: 'uncompleted',
-      },
-      {
-        duration: '11/1 - 11/30',
-        todo: 'Task2',
-        state: 'uncompleted',
-      },
-      {
-        duration: '11/1 - 11/30',
-        todo: 'TASK3',
-        state: 'completed',
-      },
-      {
-        duration: '11/1 - 11/30',
-        todo: 'Task4',
-        state: 'completed',
-      },
-      {
-        duration: '11/1 - 11/30',
-        todo: 'TASK5',
-        state: 'discarded',
-      },
-      {
-        duration: '11/1 - 11/30',
-        todo: 'Task6',
-        state: 'discarded',
-      },
-    ];
+  constructor(
+    @InjectRepository(Task)
+    private readonly taskRepository: Repository<Task>,
+  ) {}
+
+  getAllTasks() {
+    return this.taskRepository.find();
+  }
+
+  createTask(createTaskDto: CreateTaskDto) {
+    return this.taskRepository.save(createTaskDto);
+  }
+
+  async updateTask(id: string, updateTaskdto: UpdateTaskDto) {
+    const target = await this.taskRepository.findOne(id);
+    if (!target) {
+      throw new NotFoundException('タスクが見つかりませんでした');
+    }
+    return this.taskRepository.update(id, updateTaskdto);
+  }
+
+  async deleteTask(id: string) {
+    const task = await this.taskRepository.findOne(id);
+    if (!task) {
+      throw new NotFoundException('タスクが見つかりませんでした');
+    }
+    return this.taskRepository.remove(task);
   }
 }
