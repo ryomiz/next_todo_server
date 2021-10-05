@@ -26,13 +26,23 @@ export class TaskController {
     return this.taskService.createTask(createTaskDto);
   }
 
+  @Patch('complete/:id')
+  completeTask(@Param() id: string) {
+    return this.taskService.completeTask(id);
+  }
+
+  @Patch('revert/:id')
+  revertTask(@Param() id: string) {
+    return this.taskService.revertTask(id);
+  }
+
+  @Patch('discard/:id')
+  discardTask(@Param() id: string) {
+    return this.taskService.discardTask(id);
+  }
+
   @Patch(':id')
   updateTask(@Param() id: string, @Body() updateTaskDto: UpdateTaskDto) {
     return this.taskService.updateTask(id, updateTaskDto);
-  }
-
-  @Delete(':id')
-  deleteTask(@Param() id: string) {
-    return this.taskService.deleteTask(id);
   }
 }

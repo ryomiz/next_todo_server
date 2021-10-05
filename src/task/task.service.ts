@@ -21,19 +21,38 @@ export class TaskService {
     return this.taskRepository.save(createTaskDto);
   }
 
-  async updateTask(id: string, updateTaskdto: UpdateTaskDto) {
-    const target = await this.taskRepository.findOne(id);
-    if (!target) {
-      throw new NotFoundException('タスクが見つかりませんでした');
-    }
-    return this.taskRepository.update(id, updateTaskdto);
-  }
-
-  async deleteTask(id: string) {
+  async completeTask(id: string) {
     const task = await this.taskRepository.findOne(id);
     if (!task) {
       throw new NotFoundException('タスクが見つかりませんでした');
     }
-    return this.taskRepository.remove(task);
+    task.state = 'completed';
+    return this.taskRepository.save(task);
+  }
+
+  async revertTask(id: string) {
+    const task = await this.taskRepository.findOne(id);
+    if (!task) {
+      throw new NotFoundException('タスクが見つかりませんでした');
+    }
+    task.state = 'uncompleted';
+    return this.taskRepository.save(task);
+  }
+
+  async discardTask(id: string) {
+    const task = await this.taskRepository.findOne(id);
+    if (!task) {
+      throw new NotFoundException('タスクが見つかりませんでした');
+    }
+    task.state = 'discarded';
+    return this.taskRepository.save(task);
+  }
+
+  async updateTask(id: string, updateTaskdto: UpdateTaskDto) {
+    const task = await this.taskRepository.findOne(id);
+    if (!task) {
+      throw new NotFoundException('タスクが見つかりませんでした');
+    }
+    return this.taskRepository.update(id, updateTaskdto);
   }
 }
