@@ -55,4 +55,12 @@ export class TaskService {
     }
     return this.taskRepository.update(id, updateTaskdto);
   }
+
+  async deleteTask(id: string) {
+    const task = await this.taskRepository.findOne(id);
+    if (!task) {
+      throw new NotFoundException('タスクが見つかりませんでした');
+    }
+    return this.taskRepository.delete(task);
+  }
 }

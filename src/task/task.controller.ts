@@ -45,4 +45,9 @@ export class TaskController {
   updateTask(@Param() id: string, @Body() updateTaskDto: UpdateTaskDto) {
     return this.taskService.updateTask(id, updateTaskDto);
   }
+
+  @Delete(':id')
+  deleteDask(@Param() id: string) {
+    return this.taskService.deleteTask(id);
+  }
 }
