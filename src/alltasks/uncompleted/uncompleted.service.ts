@@ -23,6 +23,6 @@ export class UncompletedService {
     if (!task) {
       throw new NotFoundException('タスクが見つかりませんでした');
     }
-    return this.UncompletedRepository.delete(task);
+    return this.UncompletedRepository.remove(task);
   }
 }

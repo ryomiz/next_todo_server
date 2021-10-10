@@ -16,7 +16,7 @@ export class UncompletedController {
     return this.uncompletedService.createUncompleted(createUncompletedDto);
   }
 
-  @Delete()
+  @Delete(':id')
   deleteUncompleted(@Param() id: string) {
     return this.uncompletedService.deleteUncompleted(id);
   }

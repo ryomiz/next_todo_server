@@ -1,5 +1,6 @@
-import { Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { CompletedService } from './completed.service';
+import { CreateCompletedDto } from './dto/create-completed.dto';
 
 @Controller('v1/completed')
 export class CompletedController {
@@ -10,7 +11,12 @@ export class CompletedController {
     return this.completedService.getAllCompleted();
   }
 
-  @Delete()
+  @Post()
+  createUncompleted(@Body() createCompletedDto: CreateCompletedDto) {
+    return this.completedService.createCompleted(createCompletedDto);
+  }
+
+  @Delete(':id')
   deleteUncompleted(@Param() id: string) {
     return this.completedService.deleteCompleted(id);
   }

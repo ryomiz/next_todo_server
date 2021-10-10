@@ -6,8 +6,6 @@ import { AppController } from './app.controller';
 import { ConfigModule } from '@nestjs/config';
 import { UncompletedModule } from './alltasks/uncompleted/uncompleted.module';
 import { CompletedModule } from './alltasks/completed/completed.module';
-import { UncompletedController } from './alltasks/uncompleted/uncompleted.controller';
-import { CompletedController } from './alltasks/completed/completed.controller';
 
 @Module({
   imports: [
@@ -30,6 +28,6 @@ import { CompletedController } from './alltasks/completed/completed.controller';
     UncompletedModule,
     CompletedModule,
   ],
-  controllers: [AppController, UncompletedController, CompletedController],
+  controllers: [AppController],
 })
 export class AppModule {}

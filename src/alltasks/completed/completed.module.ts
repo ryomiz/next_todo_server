@@ -5,6 +5,7 @@ import { CompletedService } from './completed.service';
 import { Completed } from './entities/completed.entity';
 
 @Module({
+  exports: [CompletedService],
   imports: [TypeOrmModule.forFeature([Completed])],
   providers: [CompletedService],
   controllers: [CompletedController],
