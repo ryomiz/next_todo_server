@@ -7,17 +7,17 @@ export class CompletedController {
   constructor(private readonly completedService: CompletedService) {}
 
   @Get()
-  getAllUncompleted() {
+  getAllCompleted() {
     return this.completedService.getAllCompleted();
   }
 
   @Post()
-  createUncompleted(@Body() createCompletedDto: CreateCompletedDto) {
+  createCompleted(@Body() createCompletedDto: CreateCompletedDto) {
     return this.completedService.createCompleted(createCompletedDto);
   }
 
   @Delete(':id')
-  deleteUncompleted(@Param() id: string) {
+  deleteCompleted(@Param() id: string) {
     return this.completedService.deleteCompleted(id);
   }
 }

@@ -1,7 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateUncompletedDto } from '../uncompleted/dto/create-uncompleted.dto';
+import { CreateCompletedDto } from './dto/create-completed.dto';
+
 import { Completed } from './entities/completed.entity';
 
 @Injectable()
@@ -15,7 +16,7 @@ export class CompletedService {
     return this.completedRepository.find();
   }
 
-  createCompleted(createCompletedDto: CreateUncompletedDto) {
+  createCompleted(createCompletedDto: CreateCompletedDto) {
     return this.completedRepository.save(createCompletedDto);
   }
 
