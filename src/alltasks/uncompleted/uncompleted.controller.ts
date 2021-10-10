@@ -1,4 +1,13 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { CreateUncompletedDto } from './dto/create-uncompleted.dto';
 import { UncompletedService } from './uncompleted.service';
 
@@ -10,12 +19,13 @@ export class UncompletedController {
   getAllUncompleted() {
     return this.uncompletedService.getAllUncompleted();
   }
-
+  @UseGuards(JwtAuthGuard)
   @Post()
   createUncompleted(@Body() createUncompletedDto: CreateUncompletedDto) {
     return this.uncompletedService.createUncompleted(createUncompletedDto);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   deleteUncompleted(@Param() id: string) {
     return this.uncompletedService.deleteUncompleted(id);
