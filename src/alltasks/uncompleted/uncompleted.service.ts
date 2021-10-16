@@ -18,6 +18,18 @@ export class UncompletedService {
     return this.UncompletedRepository.save(createUncompletedDto);
   }
 
+  async updateUncompleted(id, updateUncompletedDto) {
+    const task = await this.UncompletedRepository.findOne(id);
+    if (!task) {
+      throw new NotFoundException('タスクが見つかりませんでした');
+    }
+    const updated = {
+      ...updateUncompletedDto,
+      id: task.id,
+    };
+    return this.UncompletedRepository.save(updated);
+  }
+
   async deleteUncompleted(id: string) {
     const task = await this.UncompletedRepository.findOne(id);
     if (!task) {

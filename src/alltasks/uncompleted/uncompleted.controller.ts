@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  Patch,
   Post,
   UseGuards,
 } from '@nestjs/common';
@@ -23,6 +24,15 @@ export class UncompletedController {
   @Post()
   createUncompleted(@Body() createUncompletedDto: CreateUncompletedDto) {
     return this.uncompletedService.createUncompleted(createUncompletedDto);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch(':id')
+  updateUncompleted(
+    @Param() id: string,
+    @Body() updateUncompletedDto: CreateUncompletedDto,
+  ) {
+    return this.uncompletedService.updateUncompleted(id, updateUncompletedDto);
   }
 
   @UseGuards(JwtAuthGuard)
