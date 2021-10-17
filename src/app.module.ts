@@ -25,7 +25,9 @@ const port = Number(process.env.DATABASE_PORT) || 5432;
       database: process.env.DATABASE,
       autoLoadEntities: true,
       synchronize: false,
-      ssl: true,
+      ssl: {
+        rejectUnauthorized: false,
+      },
     }),
     AuthModule,
     UsersModule,
