@@ -12,7 +12,7 @@ async function bootstrap() {
   );
   app.enableCors();
 
-  const port: number = parseInt(process.env.DATABASE_PORT) || 5000;
-  await app.listen(port);
+  const PORT = process.env.PORT || 5000;
+  await app.listen(PORT);
 }
 bootstrap();
