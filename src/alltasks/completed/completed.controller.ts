@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
   Param,
   Post,
   UseGuards,
@@ -16,18 +17,21 @@ export class CompletedController {
   constructor(private readonly completedService: CompletedService) {}
 
   @Get()
+  @HttpCode(200)
   getAllCompleted() {
     return this.completedService.getAllCompleted();
   }
 
   @UseGuards(JwtAuthGuard)
   @Post()
+  @HttpCode(201)
   createCompleted(@Body() createCompletedDto: CreateCompletedDto) {
     return this.completedService.createCompleted(createCompletedDto);
   }
 
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
+  @HttpCode(204)
   deleteCompleted(@Param() id: string) {
     return this.completedService.deleteCompleted(id);
   }

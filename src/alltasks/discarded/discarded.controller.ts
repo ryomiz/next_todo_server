@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
   Param,
   Post,
   UseGuards,
@@ -16,18 +17,21 @@ export class DiscardedController {
   constructor(private readonly discardedService: DiscardedService) {}
 
   @Get()
+  @HttpCode(200)
   getAllUnDiscarded() {
     return this.discardedService.getAllDiscarded();
   }
 
   @UseGuards(JwtAuthGuard)
   @Post()
+  @HttpCode(201)
   createUnDiscarded(@Body() createDiscardedDto: CreateDiscardedDto) {
     return this.discardedService.createDiscarded(createDiscardedDto);
   }
 
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
+  @HttpCode(204)
   deleteUnDiscarded(@Param() id: string) {
     return this.discardedService.deleteDiscarded(id);
   }
