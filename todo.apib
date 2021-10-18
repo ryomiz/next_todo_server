@@ -1,0 +1,177 @@
+FORMAT: 1A
+HOST: https://todo-next-server.herokuapp.com 
+
+# API仕様書 
+## Next.js × Nest.js TodoアプリAPIについて  
+・URL: https://next-nest-ryomiz.vercel.app/     
+・ログイン機能、タスクの追加、更新、削除機能を提供するAPI   
+・認証エラーの場合はstatus code 401を返却   
+
+#Group ログインに関する処理
+## ログイン処理 [/auth/login]
+ログイン処理を扱います。
+
+### ログイン [POST]
+ログインを試行します。
++ Request       
+{
+  "username": "username",
+  "password": "password"
+}
++ Response 200      
+{
+  "access_token": "token"
+}
+
+#Group 未完了のタスクに関する処理
+## 未完了のタスクに関する処理 [/v1/uncompleted]
+### 未完了のタスク取得 [GET]  
+未完了のタスクを取得します。
++ Response 200  
+{
+  "id": 1,
+  "duration": "10/1-10/31",
+  "todo": "todo1",
+  "createdBy": "user1",
+  "createdAt": "2021-10-17T15:29:53.201Z"
+}
+
+### 未完了のタスク作成 [POST]  
+未完了のタスクを作成します。
++ Request   
+  + Headers 
+  {
+    Authorization: Bearer JWT
+  }
+  + Body
+  {
+    "duration": "10/1-10/31",
+    "todo": "todo1",
+    "createdBy": "user1",
+  }
+
++ Response 201
+{
+  "id": 1,
+  "duration": "10/1-10/31",
+  "todo": "todo1",
+  "createdBy": "user1",
+  "createdAt": "2021-10-17T15:29:53.201Z"
+}
+
+## 未完了のタスクに関する処理 [/v1/uncompleted/id]
+### 未完了のタスク更新 [PATCH]  
+未完了のタスクを更新します。
++ Parameters
+  + id: 1(string)
++ Request   
+  + Headers 
+    Authorization: Bearer JWT
+  + Body
+  {
+    "duration": "10/1-10/31",
+    "todo": "todo1",
+    "createdBy": "user1",
+  }
++ Response 204
+
+### 未完了のタスク削除 [DELETE]  
+未完了のタスクを削除します。
++ Parameters
+  + id: 1(string)
++ Request   
+  + Headers 
+  {
+    Authorization: Bearer JWT
+  }
++ Response 204
+
+#Group 完了したタスクに関する処理 
+## 完了したタスクに関する処理 [/v1/completed]
+### 完了したタスク取得 [GET]  
+完了したタスクを取得します。
+未完了のタスクを取得します。
++ Response 200  
+{
+  "id": 1,
+  "duration": "10/1-10/31",
+  "todo": "todo1",
+  "createdBy": "user1",
+  "createdAt": "2021-10-17T15:29:53.201Z"
+}
+
+### 完了したタスク作成 [POST]  
+完了したタスクを作成します。
++ Request   
+  + Headers 
+  {
+    Authorization: Bearer JWT
+  }
+  + Body
+  {
+    "duration": "10/1-10/31",
+    "todo": "todo1",
+    "createdBy": "user1",
+  }
+  
++ Response 201
+{
+  "id": 1,
+  "duration": "10/1-10/31",
+  "todo": "todo1",
+  "createdBy": "user1",
+  "createdAt": "2021-10-17T15:29:53.201Z"
+}
+## 完了したタスクに関する処理 [/v1/completed/id]
+### 完了したタスク削除 [DELETE]  
+完了したタスクを削除します。
++ Parameters
+  + id: 1(string)
++ Request   
+  + Headers 
+  {
+    Authorization: Bearer JWT
+  }
++ Response 204
+
+#Group 破棄されたタスクに関する処理
+## 破棄されたタスクに関する処理 [/v1/discarded]
+破棄されたタスクに対して処理を行います。
+
+### 破棄されたタスク取得 [GET]  
+破棄されたタスクを取得します。
+
+### 破棄されたタスク作成 [POST]  
+破棄されたタスクを作成します。
++ Request   
+  + Headers 
+  {
+    Authorization: Bearer JWT
+  }
+  + Body
+  {
+    "duration": "10/1-10/31",
+    "todo": "todo1",
+    "createdBy": "user1",
+  }
+  
++ Response 201
+{
+  "id": 1,
+  "duration": "10/1-10/31",
+  "todo": "todo1",
+  "createdBy": "user1",
+  "createdAt": "2021-10-17T15:29:53.201Z"
+}
+
+## 破棄されたタスクに関する処理 [/v1/discarded/{id}]
+### 破棄されたタスク削除 [DELETE]  
+破棄されたタスクを削除します。
++ Parameters
+  + id: 1(string)
++ Request   
+  + Headers 
+  {
+    Authorization: Bearer JWT
+  }
++ Response 204
