@@ -24,6 +24,7 @@ export class DiscardedService {
     if (!task) {
       throw new NotFoundException('タスクが見つかりませんでした');
     }
-    return this.discardedRepository.remove(task);
+    await this.discardedRepository.remove(task);
+    return;
   }
 }

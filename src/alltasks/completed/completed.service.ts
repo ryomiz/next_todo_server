@@ -25,6 +25,7 @@ export class CompletedService {
     if (!task) {
       throw new NotFoundException('タスクが見つかりませんでした');
     }
-    return this.completedRepository.remove(task);
+    await this.completedRepository.remove(task);
+    return;
   }
 }

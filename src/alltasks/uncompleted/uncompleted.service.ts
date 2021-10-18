@@ -27,7 +27,8 @@ export class UncompletedService {
       ...updateUncompletedDto,
       id: task.id,
     };
-    return this.UncompletedRepository.save(updated);
+    await this.UncompletedRepository.save(updated);
+    return;
   }
 
   async deleteUncompleted(id: string) {
@@ -35,6 +36,7 @@ export class UncompletedService {
     if (!task) {
       throw new NotFoundException('タスクが見つかりませんでした');
     }
-    return this.UncompletedRepository.remove(task);
+    await this.UncompletedRepository.remove(task);
+    return;
   }
 }
